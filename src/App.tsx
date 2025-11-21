@@ -2,9 +2,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+
 import LandingPage from "./components/LandingPage";
 import LoginPage from "./components/LoginPage";
 import Onboarding from "./pages/Onboarding";
@@ -38,28 +39,120 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+
+            {/* Redirect default route to dashboard */}
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route
+              path="/onboarding"
+              element={
+                <ProtectedRoute>
+                  <Onboarding />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-            <Route path="/order/:id/confirmation" element={<ProtectedRoute><OrderConfirmation /></ProtectedRoute>} />
-            <Route path="/order/:id/track" element={<ProtectedRoute><OrderTracking /></ProtectedRoute>} />
-            <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
-            <Route path="/account/orders" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
-            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route path="/account/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+
+            <Route
+              path="/checkout"
+              element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/order/:id/confirmation"
+              element={
+                <ProtectedRoute>
+                  <OrderConfirmation />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/order/:id/track"
+              element={
+                <ProtectedRoute>
+                  <OrderTracking />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/wishlist"
+              element={
+                <ProtectedRoute>
+                  <Wishlist />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/account/orders"
+              element={
+                <ProtectedRoute>
+                  <OrderHistory />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/account/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+
             <Route path="/offers" element={<Offers />} />
             <Route path="/help" element={<HelpSupport />} />
-            <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+            <Route
+              path="/notifications"
+              element={
+                <ProtectedRoute>
+                  <Notifications />
+                </ProtectedRoute>
+              }
+            />
+
             <Route path="/about" element={<AboutUs />} />
             <Route path="/terms" element={<TermsAndPolicies />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/pay/stripe-demo" element={<StripeDemo />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
